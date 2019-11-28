@@ -87,7 +87,7 @@ func wait() error {
 				if !ok {
 					return
 				}
-				glog.Errorf("error:", err)
+				glog.Errorf("error: %v", err)
 			}
 		}
 	}()
