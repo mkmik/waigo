@@ -2,7 +2,7 @@
 github.com/golang/glog
 # github.com/integralist/go-findroot v0.0.0-20160518114804-ac90681525dc
 github.com/integralist/go-findroot/find
-# golang.org/x/sys v0.0.0-20181205085412-a5c9d58dba9a
+# golang.org/x/sys v0.0.0-20191128015809-6d18c012aee9
 golang.org/x/sys/unix
 # gopkg.in/fsnotify.v1 v1.4.7
 gopkg.in/fsnotify.v1
