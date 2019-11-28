@@ -5,7 +5,7 @@ Waits until any file belonging to the current project and required by the Go pac
 # Install
 
 ```
-$ go get -u github.com/mkmik/waigo
+$ (cd /; GO111MODULE=on go get github.com/mkmik/waigo@master)
 ```
 
 # Usage

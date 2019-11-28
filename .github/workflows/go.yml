@@ -17,4 +17,4 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Build
-      run: go test -mod=vendor -v .
+      run: go test -v .
