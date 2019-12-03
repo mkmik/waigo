@@ -11,6 +11,10 @@ import (
 	fsnotify "gopkg.in/fsnotify.v1"
 )
 
+var (
+	pattern = flag.String("p", "./...", "package pattern")
+)
+
 // importsUnder returns the package path of pkg pluse all the package paths
 // for all the imported packages recursively, as long as they are children
 // of the base import path.
@@ -74,8 +78,8 @@ func getDeps(pattern string) ([]string, error) {
 	return res, nil
 }
 
-func wait() error {
-	deps, err := getDeps("./...")
+func wait(pattern string) error {
+	deps, err := getDeps(pattern)
 	if err != nil {
 		return err
 	}
@@ -122,7 +126,7 @@ func main() {
 	flag.Parse()
 	defer glog.Flush()
 
-	if err := wait(); err != nil {
+	if err := wait(*pattern); err != nil {
 		glog.Fatal(err)
 	}
 }
