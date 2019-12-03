@@ -1,47 +1,15 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
 	"flag"
-	"fmt"
-	"go/build"
-	"os/exec"
 	"path/filepath"
 	"sort"
 	"strings"
 
 	"github.com/golang/glog"
-	"github.com/integralist/go-findroot/find"
 	"golang.org/x/tools/go/packages"
 	fsnotify "gopkg.in/fsnotify.v1"
 )
-
-func findProjectBase() (importPath string, dir string, err error) {
-	cmd := exec.Command("go", "list", "-json", "./...")
-	b, err := cmd.Output()
-	if err != nil {
-		return "", "", err
-	}
-	var l Package
-	if err := json.NewDecoder(bytes.NewReader(b)).Decode(&l); err != nil {
-		return "", "", fmt.Errorf("while parsing go list: %w", err)
-	}
-
-	if l.Module != nil {
-		return l.Module.Path, l.Module.Dir, nil
-	}
-	root, err := find.Repo()
-	if err != nil {
-		return "", "", err
-	}
-	dir = root.Path
-	pkg, err := build.Default.ImportDir(dir, build.FindOnly)
-	if err != nil {
-		return "", "", err
-	}
-	return pkg.ImportPath, dir, nil
-}
 
 // importsUnder returns the package path of pkg pluse all the package paths
 // for all the imported packages recursively, as long as they are children
