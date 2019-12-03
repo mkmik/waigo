@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"flag"
+	"fmt"
 	"go/build"
 	"os/exec"
 	"path/filepath"
@@ -16,14 +18,14 @@ import (
 )
 
 func findProjectBase() (importPath string, dir string, err error) {
-	cmd := exec.Command("go", "list", "-json")
+	cmd := exec.Command("go", "list", "-json", "./...")
 	b, err := cmd.Output()
 	if err != nil {
 		return "", "", err
 	}
 	var l Package
-	if err := json.Unmarshal(b, &l); err != nil {
-		return "", "", err
+	if err := json.NewDecoder(bytes.NewReader(b)).Decode(&l); err != nil {
+		return "", "", fmt.Errorf("while parsing go list: %w", err)
 	}
 
 	if l.Module != nil {
